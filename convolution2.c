@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
                     }
                 }
             }
-            // scaling
+            sum = sum / 16;
             // saturation
         }
     }
