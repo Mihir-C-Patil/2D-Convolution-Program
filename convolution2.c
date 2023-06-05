@@ -101,12 +101,16 @@ int main(int argc, char *argv[]) {
                 }
             }
         }
-
+        for (int row = 0; row < 1024; ++row) {
+            for (int column = 0; column < 1024; ++column) {
+                data[row][column] = result[row][column];
+            }
+        }
     }
 
     for (i = 0; i < 1024; i++) {
         for (j = 0; j < 1024; j++) {
-            fprintf(file3, "%d ", result[i][j]);
+            fprintf(file3, "%d ", data[i][j]);
         }
         fprintf(file3, "\n");
     }
