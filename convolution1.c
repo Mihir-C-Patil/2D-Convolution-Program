@@ -78,31 +78,34 @@ int main(int argc, char *argv[]) {
         i = i + 1;
     } while (i < 5);
 
-    for (int row = 0; row < 1024; ++row) {
-        for (int column = 0; column < 1024; ++column) {
-            int sum = 0;
-            for (int filter_row = 0; filter_row < 5; ++filter_row) {
-                for (int filter_column = 0; filter_column < 5; ++filter_column)
-                {
-                    int row_index = row - filter_row + 2;
-                    int column_index = column - filter_column + 2;
-                    if (0 <= row_index && row_index < 1024 && 0
-                    <= column_index && column_index < 1024) {
-                        sum += data[row_index][column_index].o_val
-                               * filter[filter_row][filter_column];
+    for (int iteration = 0; iteration < iter; ++iteration) {
+        for (int row = 0; row < 1024; ++row) {
+            for (int column = 0; column < 1024; ++column) {
+                int sum = 0;
+                for (int filter_row = 0; filter_row < 5; ++filter_row) {
+                    for (int filter_column = 0; filter_column < 5;
+                    ++filter_column)
+                    {
+                        int row_index = row - filter_row + 2;
+                        int column_index = column - filter_column + 2;
+                        if (0 <= row_index && row_index < 1024 && 0
+                        <= column_index && column_index < 1024) {
+                            sum += data[row_index][column_index].o_val
+                                   * filter[filter_row][filter_column];
+                        }
                     }
                 }
-            }
-            sum = sum / 16; // Scaling
-            // Saturation
-            if (sum > 16) {
-                data[row][column].n_val = 16;
-            }
-            else if (sum >= -16) {
-                data[row][column].n_val = sum;
-            }
-            else {
-                data[row][column].n_val = -16;
+                sum = sum / 16; // Scaling
+                // Saturation
+                if (sum > 16) {
+                    data[row][column].n_val = 16;
+                }
+                else if (sum >= -16) {
+                    data[row][column].n_val = sum;
+                }
+                else {
+                    data[row][column].n_val = -16;
+                }
             }
         }
     }
