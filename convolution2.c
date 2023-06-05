@@ -73,26 +73,20 @@ int main(int argc, char *argv[]) {
         i = i + 1;
     } while (i < 5);
 
-
     for (int row = 0; row < 1024; ++row) {
         for (int column = 0; column < 1024; ++column) {
             int sum = 0;
             for (int filter_row = 0; filter_row < 5; ++filter_row) {
-                for (int filter_column = 0; filter_column < 5;
-                ++filter_column) {
-                    int row_index = row + filter_row - 2;
-                    int column_index = column + filter_column - 2;
-                    if (row_index <= 0 && row_index < 1024 && column_index
-                    >= 0 && column_index < 1024) {
-                        sum += data[row_index][column_index]
-                                * filter[filter_row][filter_column];
-                    }
+                for (int filter_column = 0;
+                     filter_column < 5; ++filter_column) {
+                    // Code to calculate flipped indexes
+                    //if statement
                 }
             }
-            result[row][column] = sum;
         }
+        // scaling
+        // saturation
     }
-
 
     for (i = 0; i < 1024; i++) {
         for (j = 0; j < 1024; j++) {
