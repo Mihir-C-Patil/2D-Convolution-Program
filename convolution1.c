@@ -108,7 +108,14 @@ int main(int argc, char *argv[]) {
                 }
             }
         }
+        for (int row = 0; row < 1024; ++row) {
+            for (int column = 0; column < 1024; ++column) {
+                data[row][column].o_val = data[row][column].n_val;
+            }
+        }
     }
+
+}
 
     for (i = 0; i < 1024; i++) {
         for (j = 0; j < 1024; j++) {
