@@ -90,13 +90,13 @@ int main(int argc, char *argv[]) {
             }
             sum = sum / 16;
             if (sum > 16) {
-                // code
+                result[row][column] = 16;
             }
             else if (sum >= -16) {
-                // code
+                result[row][column] = sum;
             }
             else {
-                // code
+                result[row][column] = -16;
             }
         }
     }
