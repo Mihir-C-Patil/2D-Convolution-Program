@@ -87,8 +87,8 @@ int main(int argc, char *argv[]) {
                     int row_index = row - filter_row + 2;
                     int column_index = column - filter_column + 2;
                     if (0 <= row_index && row_index < 1024 && 0
-                                                              <= column_index && column_index < 1024) {
-                        sum += data[row_index][column_index]
+                    <= column_index && column_index < 1024) {
+                        sum += data[row_index][column_index].o_val
                                * filter[filter_row][filter_column];
                     }
                 }
@@ -96,13 +96,13 @@ int main(int argc, char *argv[]) {
             sum = sum / 16; // Scaling
             // Saturation
             if (sum > 16) {
-                result[row][column] = 16;
+                data[row][column].n_val = 16;
             }
             else if (sum >= -16) {
-                result[row][column] = sum;
+                data[row][column].n_val = sum;
             }
             else {
-                result[row][column] = -16;
+                data[row][column].n_val = -16;
             }
         }
     }
