@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
     int i = 0;
     int filter[5][5];
     int** data;
-    int** rlt;
+    int** result;
     int j, k, l, m;
     int val;
     int iter;
@@ -29,10 +29,10 @@ int main(int argc, char *argv[]) {
     } 
     file3 = fopen(argv[3], "w");
     data = (int**) malloc(sizeof(int*)*1024);
-    rlt = (int**) malloc(sizeof(int*)*1024);
+    result = (int**) malloc(sizeof(int*) * 1024);
     for (i = 0; i < 1024; i++) {
         data[i] = (int*) malloc(sizeof(int)*1024);
-        rlt[i] = (int*) malloc(sizeof(int)*1024);
+        result[i] = (int*) malloc(sizeof(int) * 1024);
     }
 
     i = 0;
@@ -74,7 +74,24 @@ int main(int argc, char *argv[]) {
     } while (i < 5);
 
 
-// Your code is here
+    for (int row = 0; row < 1024; ++row) {
+        for (int column = 0; column < 1024; ++column) {
+            int sum = 0;
+            for (int filter_row = 0; filter_row < 5; ++filter_row) {
+                for (int filter_column = 0; filter_column < 5;
+                ++filter_column) {
+                    int row_index = row + filter_row - 2;
+                    int column_index = column + filter_column - 2;
+                    if (row_index <= 0 && row_index < 1024 && column_index
+                    >= 0 && column_index < 1024) {
+                        sum += data[row_index][column_index]
+                                * filter[filter_row][filter_column];
+                    }
+                }
+            }
+            result[row][column] = sum;
+        }
+    }
 
 
     for (i = 0; i < 1024; i++) {
@@ -86,10 +103,10 @@ int main(int argc, char *argv[]) {
 
     for (i = 0; i < 1024; i++) {
         free(data[i]);
-        free(rlt[i]);
+        free(result[i]);
     }
     free(data);
-	free(rlt);
+	free(result);
     fclose(file1);
     fclose(file2);
     fclose(file3);
