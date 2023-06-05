@@ -1,3 +1,20 @@
+/*
+ * This C program performs a 2D convolution operation on a 1024x1024
+ * data input file with a 5x5 data input file as a filter.
+ * This program also performs scaling and saturation of output values,
+ * meaning that output values will not exceed the range of -16 to 16.
+ * The output will be outputted to a file as a space separated list of
+ * integer values, with the end of a row being a new line character.
+ * The command line usage of this program is:
+ * convolution1 dataFile filterFile outputFile numberOfConvolutions
+ *
+ * Each line in this program is limited to 79 characters per line,
+ * every comment in this program is limited to 72 characters per line.
+ *
+ * Author: Mihir Patil
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -7,6 +24,8 @@ struct matrix {
     int original_vals;
     int new_vals;
 };
+
+
 typedef struct matrix Matrix; // Type alias for struct matrix type.
 
 

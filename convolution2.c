@@ -1,12 +1,31 @@
+/*
+ * This C program performs a 2D convolution operation on a 1024x1024
+ * data input file with a 5x5 data input file as a filter.
+ * This program also performs scaling and saturation of output values,
+ * meaning that output values will not exceed the range of -16 to 16.
+ * The output will be outputted to a file as a space separated list of
+ * integer values, with the end of a row being a new line character.
+ * The command line usage of this program is:
+ * convolution2 dataFile filterFile outputFile numberOfConvolutions
+ *
+ * Each line in this program is limited to 79 characters per line,
+ * every comment in this program is limited to 72 characters per line.
+ *
+ * Author: Mihir Patil
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
 
 void read_data_from_file2(const char* filename, int** data);
 void read_filter_from_file2(const char* filename, int filter[5][5]);
 void convolve2(int** data, int** result, int filter[5][5]);
 void update_data_array(int** data, int** result);
 void output_data2(const char* filename, int** data);
+
 
 int main(int argc, char *argv[]) {
     FILE* data_file, *filter_file, *output_file;
