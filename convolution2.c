@@ -92,15 +92,12 @@ int main(int argc, char *argv[]) {
                 sum = sum / 16;
                 if (sum > 16) {
                     result[row][column] = 16;
-                    data[row][column] = 16;
                 }
                 else if (sum >= -16) {
                     result[row][column] = sum;
-                    data[row][column] = sum;
                 }
                 else {
                     result[row][column] = -16;
-                    data[row][column] = -16;
                 }
             }
         }
