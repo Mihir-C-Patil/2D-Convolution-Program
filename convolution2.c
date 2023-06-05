@@ -10,7 +10,7 @@ void output_data(const char* filename, const int** data);
 
 int main(int argc, char *argv[]) {
     FILE* data_file, *filter_file, *output_file;
-    int index1, index2, value, iterations;
+    int index1, iterations;
     int** data;
     int** result;
     int filter[5][5];
