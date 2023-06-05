@@ -78,10 +78,13 @@ int main(int argc, char *argv[]) {
             int sum = 0;
             for (int filter_row = 0; filter_row < 5; ++filter_row) {
                 for (int filter_column = 0;
-                     filter_column < 5; ++filter_column) {
+                    filter_column < 5; ++filter_column) {
                     int row_index = row - filter_row + 2;
                     int column_index = column - filter_column + 2;
-                    //if statement
+                    if (0 <= row_index && row_index < 1024
+                    && 0 <= column_index && column_index < 1024) {
+                        // code
+                    }
                 }
             }
         }
