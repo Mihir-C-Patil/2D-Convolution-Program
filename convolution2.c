@@ -4,13 +4,13 @@
 
 int main(int argc, char *argv[]) {
     FILE *file1, *file2, *file3;
-    int i = 0;
+    int index1;
     int filter[5][5];
     int** data;
     int** result;
-    int j, k, l, m;
-    int val;
-    int iter;
+    int index2;
+    int value;
+    int iterations;
 
     if (argc < 5) {
     	printf("Usage: ./convolution2 data1.txt filter1.txt temp111 1\n");
@@ -22,58 +22,58 @@ int main(int argc, char *argv[]) {
     	printf("Error: Files cannot open\n");
     	return 1;
     }
-    iter = atoi(argv[4]);
-    if (iter == 0) {
+    iterations = atoi(argv[4]);
+    if (iterations == 0) {
     	printf("Error: Invalid iteration\n");
     	return 1;
     } 
     file3 = fopen(argv[3], "w");
     data = (int**) malloc(sizeof(int*)*1024);
     result = (int**) malloc(sizeof(int*) * 1024);
-    for (i = 0; i < 1024; i++) {
-        data[i] = (int*) malloc(sizeof(int)*1024);
-        result[i] = (int*) malloc(sizeof(int) * 1024);
+    for (index1 = 0; index1 < 1024; index1++) {
+        data[index1] = (int*) malloc(sizeof(int) * 1024);
+        result[index1] = (int*) malloc(sizeof(int) * 1024);
     }
 
-    i = 0;
+    index1 = 0;
     do {
-        j = 0;
+        index2 = 0;
         do {
-            if (j == 1023) {
-                fscanf(file1, "%d\n", &val);
-                data[i][j] = val;
-//                printf("%d\n", data[i][j]);
+            if (index2 == 1023) {
+                fscanf(file1, "%d\n", &value);
+                data[index1][index2] = value;
+//                printf("%d\n", data[index1][index2]);
             }
             else {
-                fscanf(file1, "%d,", &val);
-                data[i][j] = val;
-//                printf("%d ", data[i][j]);
+                fscanf(file1, "%d,", &value);
+                data[index1][index2] = value;
+//                printf("%d ", data[index1][index2]);
             }
-            j = j + 1;
-        } while (j < 1024);
-        i = i + 1;
-    } while (i < 1024);
+            index2 = index2 + 1;
+        } while (index2 < 1024);
+        index1 = index1 + 1;
+    } while (index1 < 1024);
 
-    i = 0;
+    index1 = 0;
     do {
         int j = 0;
         do {
             if (j == 4) {
-                fscanf(file2, "%d\n", &val);
-                filter[i][j] = val;
-//                printf("%d\n", filter[i][j]);
+                fscanf(file2, "%d\n", &value);
+                filter[index1][j] = value;
+//                printf("%d\n", filter[index1][index2]);
             }
             else {
-                fscanf(file2, "%d,", &val);
-                filter[i][j] = val;
-//               printf("%d ", filter[i][j]);
+                fscanf(file2, "%d,", &value);
+                filter[index1][j] = value;
+//               printf("%d ", filter[index1][index2]);
             }
             j = j + 1;
         } while (j < 5);
-        i = i + 1;
-    } while (i < 5);
+        index1 = index1 + 1;
+    } while (index1 < 5);
 
-    for (int iteration = 0; iteration < iter; ++iteration) {
+    for (int iteration = 0; iteration < iterations; ++iteration) {
         for (int row = 0; row < 1024; ++row) {
             for (int column = 0; column < 1024; ++column) {
                 int sum = 0;
@@ -108,16 +108,16 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    for (i = 0; i < 1024; i++) {
-        for (j = 0; j < 1024; j++) {
-            fprintf(file3, "%d ", data[i][j]);
+    for (index1 = 0; index1 < 1024; index1++) {
+        for (index2 = 0; index2 < 1024; index2++) {
+            fprintf(file3, "%d ", data[index1][index2]);
         }
         fprintf(file3, "\n");
     }
 
-    for (i = 0; i < 1024; i++) {
-        free(data[i]);
-        free(result[i]);
+    for (index1 = 0; index1 < 1024; index1++) {
+        free(data[index1]);
+        free(result[index1]);
     }
     free(data);
 	free(result);
