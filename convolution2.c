@@ -79,7 +79,8 @@ int main(int argc, char *argv[]) {
             for (int filter_row = 0; filter_row < 5; ++filter_row) {
                 for (int filter_column = 0;
                      filter_column < 5; ++filter_column) {
-                    // Code to calculate flipped indexes
+                    int row_index = row - filter_row + 2;
+                    int column_index = column - filter_column + 2;
                     //if statement
                 }
             }
