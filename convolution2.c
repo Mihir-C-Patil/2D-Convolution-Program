@@ -83,7 +83,8 @@ int main(int argc, char *argv[]) {
                     int column_index = column - filter_column + 2;
                     if (0 <= row_index && row_index < 1024
                     && 0 <= column_index && column_index < 1024) {
-                        // code
+                        sum += data[row_index][column_index]
+                                * filter[filter_row][filter_column];
                     }
                 }
             }
