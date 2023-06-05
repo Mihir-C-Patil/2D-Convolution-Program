@@ -88,9 +88,9 @@ int main(int argc, char *argv[]) {
                     }
                 }
             }
+            // scaling
+            // saturation
         }
-        // scaling
-        // saturation
     }
 
     for (i = 0; i < 1024; i++) {
