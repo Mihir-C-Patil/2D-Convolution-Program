@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="convolution2.c" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" singleton="false" PROGRAM_PARAMS="data1.txt filter1.txt temp111.txt 1" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Assignment 2" TARGET_NAME="convolution2.c" CONFIG_NAME="convolution2.c">
+    <option name="sourceFile" value="C:\Users\might\OneDrive - The University of Auckland\COMPSCI 210\Assignments\Assignment 2\convolution2.c" />
+    <method v="2">
+      <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+    </method>
+  </configuration>
+</component>
