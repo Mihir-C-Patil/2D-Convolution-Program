@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
 
     for (i = 0; i < 1024; i++) {
         for (j = 0; j < 1024; j++) {
-            fprintf(file3, "%d ", data[i][j]);
+            fprintf(file3, "%d ", result[i][j]);
         }
         fprintf(file3, "\n");
     }
