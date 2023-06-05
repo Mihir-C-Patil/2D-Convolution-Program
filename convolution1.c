@@ -11,6 +11,8 @@
  * Each line in this program is limited to 79 characters per line,
  * every comment in this program is limited to 72 characters per line.
  *
+ * Time for test case: data1.txt filter1.txt temp112.txt 2: 0.887 sec.
+ *
  * Author: Mihir Patil
 */
 
