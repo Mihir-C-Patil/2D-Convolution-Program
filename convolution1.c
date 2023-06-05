@@ -1,17 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
 
 struct matrix {
     int original_vals;
     int new_vals;
 };
-typedef struct matrix Matrix;
+typedef struct matrix Matrix; // Type alias for struct matrix type.
 
-void read_data_file(FILE* file, Matrix** data);
-void read_filter_file(FILE* file, int filter[5][5]);
+
+void read_data_from_file(FILE* file, Matrix** data);
+void read_filter_from_file(FILE* file, int filter[5][5]);
 void convolve(Matrix** data, int filter[5][5]);
 void update_data_matrix(Matrix** data);
 void output_data(FILE* file, Matrix** data);
+
 
 int main(int argc, char* argv[]) {
     FILE* data_file, *filter_file, *output_file;
@@ -19,40 +23,38 @@ int main(int argc, char* argv[]) {
     Matrix** data;
     int iterations;
 
-    if (argc < 5) {
+    if (argc < 5) { // Confirm that correct number of arguments passed.
         printf("Usage: ./convolution data1.txt filter1.txt temp111 1\n");
         return 1;
     }
 
-    // Open data, filter, and output files
+    // Open the data, filter, and output files
     data_file = fopen(argv[1], "r");
     filter_file = fopen(argv[2], "r");
     output_file = fopen(argv[3], "w");
-
-    if (data_file == NULL || filter_file == NULL || output_file == NULL) {
+    if (data_file == NULL || filter_file == NULL) {
         printf("Error: Files cannot be opened\n");
         return 1;
     }
 
+    // Confirm that inputted iterations is valid.
     iterations = atoi(argv[4]);
     if (iterations <= 0) {
         printf("Error: Invalid number of iterations\n");
         return 1;
     }
 
-    // Allocate memory for data array
+    // Allocate memory for data matrix.
     data = (Matrix**)malloc(sizeof(Matrix*) * 1024);
     for (int i = 0; i < 1024; i++) {
         data[i] = (Matrix*)malloc(sizeof(Matrix) * 1024);
     }
 
-    // Read data from data file
-    read_data_file(data_file, data);
+    // Read data from data and filter file
+    read_data_from_file(data_file, data);
+    read_filter_from_file(filter_file, filter);
 
-    // Read filter from filter file
-    read_filter_file(filter_file, filter);
-
-    // Perform convolution for the specified number of iterations
+    // Perform 2D convolution operation, and scale and saturate values.
     for (int iteration = 0; iteration < iterations; ++iteration) {
         convolve(data, filter);
         update_data_matrix(data);
@@ -61,21 +63,22 @@ int main(int argc, char* argv[]) {
     // Output data to output file
     output_data(output_file, data);
 
-    // Clean up resources
+    // Free up used memory
     for (int i = 0; i < 1024; i++) {
         free(data[i]);
     }
     free(data);
-
+    // Close files
     fclose(data_file);
     fclose(filter_file);
     fclose(output_file);
-
     return 0;
 }
 
 
-void read_data_file(FILE* file, Matrix** data) {
+/* This function reads the values from the data file and inserts them
+ * into their corresponding data array positions. */
+void read_data_from_file(FILE* file, Matrix** data) {
     int index = 0;
     int index2;
     int values;
@@ -97,7 +100,9 @@ void read_data_file(FILE* file, Matrix** data) {
 }
 
 
-void read_filter_file(FILE* file, int filter[5][5]) {
+/* This function reads the values from the filter file and insets them
+ * into their corresponding data array positions. */
+void read_filter_from_file(FILE* file, int filter[5][5]) {
     int index = 0;
     int index2;
     int values;
@@ -119,6 +124,7 @@ void read_filter_file(FILE* file, int filter[5][5]) {
 }
 
 
+// This function applies the two-dimensional convolve2 operation
 void convolve(Matrix** data, int filter[5][5]) {
     int row, column, filter_row, filter_column;
     int row_index, column_index;
@@ -152,6 +158,8 @@ void convolve(Matrix** data, int filter[5][5]) {
 }
 
 
+/* This function copies the values from the temporary result array
+ * to the data array */
 void update_data_matrix(Matrix** data) {
     int row, column;
 
@@ -163,6 +171,8 @@ void update_data_matrix(Matrix** data) {
 }
 
 
+/* This function outputs the data array to a file
+ * as a space separated list of values */
 void output_data(FILE* file, Matrix** data) {
     int index, index2;
 

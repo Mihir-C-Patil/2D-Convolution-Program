@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-void read_data_from_file(const char* filename, int** data);
-void read_filter_from_file(const char* filename, int filter[5][5]);
-void convolve(int** data, int** result, const int filter[5][5]);
+void read_data_from_file2(const char* filename, int** data);
+void read_filter_from_file2(const char* filename, int filter[5][5]);
+void convolve2(int** data, int** result, int filter[5][5]);
 void update_data_array(int** data, int** result);
-void output_data(const char* filename, const int** data);
+void output_data2(const char* filename, int** data);
 
 int main(int argc, char *argv[]) {
     FILE* data_file, *filter_file, *output_file;
@@ -44,18 +44,18 @@ int main(int argc, char *argv[]) {
         result[index1] = (int*) malloc(sizeof(int) * 1024);
     }
 
-    // Read data from data and input file
-    read_data_from_file(argv[1], data);
-    read_filter_from_file(argv[2], filter);
+    // Read data from data and filter file
+    read_data_from_file2(argv[1], data);
+    read_filter_from_file2(argv[2], filter);
 
     // Perform 2D convolution operation, and scale and saturate values.
     for (int iteration = 0; iteration < iterations; ++iteration) {
-        convolve(data, result, filter);
+        convolve2(data, result, filter);
         update_data_array(data, result);
     }
 
     // Output the data to the output file
-    output_data(argv[3], data);
+    output_data2(argv[3], data);
 
     // Free up used memory
     for (index1 = 0; index1 < 1024; index1++) {
@@ -64,6 +64,7 @@ int main(int argc, char *argv[]) {
     }
     free(data);
     free(result);
+    // Close files
     fclose(data_file);
     fclose(filter_file);
     fclose(output_file);
@@ -73,7 +74,7 @@ int main(int argc, char *argv[]) {
 
 /* This function reads the values from the data file and inserts them
  * into their corresponding data array positions. */
-void read_data_from_file(const char* filename, int** data) {
+void read_data_from_file2(const char* filename, int** data) {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
         printf("Error: Unable to open file '%s'\n", filename);
@@ -93,7 +94,7 @@ void read_data_from_file(const char* filename, int** data) {
 
 /* This function reads the values from the filter file and insets them
  * into their corresponding data array positions. */
-void read_filter_from_file(const char* filename, int filter[5][5]) {
+void read_filter_from_file2(const char* filename, int filter[5][5]) {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
         printf("Error: Unable to open file '%s'\n", filename);
@@ -111,8 +112,8 @@ void read_filter_from_file(const char* filename, int filter[5][5]) {
 }
 
 
-// This function applies the two-dimensional convolve operation
-void convolve(int** data, int** result, const int filter[5][5]) {
+// This function applies the two-dimensional convolve2 operation
+void convolve2(int** data, int** result, int filter[5][5]) {
     for (int row = 0; row < 1024; ++row) {
         for (int column = 0; column < 1024; ++column) {
             int sum = 0;
@@ -157,7 +158,7 @@ void update_data_array(int** data, int** result) {
 
 /* This function outputs the data array to a file
  * as a space separated list of values */
-void output_data(const char* filename, const int** data) {
+void output_data2(const char* filename, int** data) {
     FILE* file = fopen(filename, "w");
     if (file == NULL) {
         printf("Error: Unable to open file '%s'\n", filename);
