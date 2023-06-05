@@ -89,7 +89,15 @@ int main(int argc, char *argv[]) {
                 }
             }
             sum = sum / 16;
-            // saturation
+            if (sum > 16) {
+                // code
+            }
+            else if (sum >= -16) {
+                // code
+            }
+            else {
+                // code
+            }
         }
     }
 
